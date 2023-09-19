@@ -6,7 +6,7 @@ import json
 import datetime
 
 # read in the contents of the JSON file
-with open("../../30DayQuakes.json", "r") as datafile:
+with open("30DayQuakes.json", "r") as datafile:
     data = json.load(datafile)
 
 
@@ -19,7 +19,17 @@ def isbig(x):
 largequakes = list(filter(isbig, data["features"]))
 
 # TODO: Create the header and row structures for the data
-
+header = ["Place", "Magnitude","Link","Date"]
+rows = []
 # TODO: populate the rows with the resulting quake data
-
+for quake in largequakes:
+    q = quake['properties']
+    formatted_date = datetime.date.fromtimestamp(int(q['time']/1000))
+    rows.append([q['place'], q['mag'], q['url'], formatted_date])
+    
 # TODO: write the results to the CSV file
+with open("largequakes.csv" , "w") as csv_file:
+    writer = csv.writer(csv_file, delimiter=",")
+    writer.writerow(header)
+    writer.writerow(rows)
+    
