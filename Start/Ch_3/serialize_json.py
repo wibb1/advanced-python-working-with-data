@@ -6,7 +6,7 @@ import datetime
 
 
 # read in the contents of the JSON file
-with open("../../30DayQuakes.json", "r") as datafile:
+with open("30DayQuakes.json", "r") as datafile:
     data = json.load(datafile)
 
 
@@ -16,12 +16,22 @@ def isbig(x):
 
 
 # TODO: define a function to transform complex JSON to simpler JSON
-
+def simple_quake(quake):
+    q = quake['properties']
+    return {
+        'palce' : q['place'],
+        'mag' : q['mag'],
+        'link' : q['url'],
+        'date' : str(datetime.date.fromtimestamp(int(q['time']/1000)))
+    }
 
 # filter the data to only include large quakes
-largequakes = list(filter(isbig, data["features"]))
+large_quakes = list(filter(isbig, data["features"]))
 # TODO: transform the data to a JSON format we want to save
-
+large_quakes = list(map(simple_quake, large_quakes))
 # TODO: use the dumps() function to write json to a string
-
+# str = json.dumps(large_quakes, sort_keys=True, indent=4)
+# print(str)
 # TODO: use the dump() function to write json to a file
+with open("largequakes.json", "w") as outfile:
+    json.dump(large_quakes, outfile, sort_keys=True, indent=4)
