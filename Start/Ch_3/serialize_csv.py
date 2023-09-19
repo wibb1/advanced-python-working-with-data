@@ -25,11 +25,11 @@ rows = []
 for quake in largequakes:
     q = quake['properties']
     formatted_date = datetime.date.fromtimestamp(int(q['time']/1000))
-    rows.append([q['place'], q['mag'], q['url'], formatted_date])
+    rows.append([q['place'], q['mag'], formatted_date, q['url']])
     
 # TODO: write the results to the CSV file
 with open("largequakes.csv" , "w") as csv_file:
     writer = csv.writer(csv_file, delimiter=",")
     writer.writerow(header)
-    writer.writerow(rows)
+    writer.writerows(rows)
     
