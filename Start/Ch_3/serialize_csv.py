@@ -28,8 +28,8 @@ for quake in largequakes:
     rows.append([q['place'], q['mag'], formatted_date, q['url']])
     
 # TODO: write the results to the CSV file
-with open("largequakes.csv" , "w") as csv_file:
-    writer = csv.writer(csv_file, delimiter=",")
+with open("largequakes.csv" , "w", newline='', encoding="utf-8") as csv_file:
+    writer = csv.writer(csv_file, delimiter=',')
     writer.writerow(header)
     writer.writerows(rows)
     
