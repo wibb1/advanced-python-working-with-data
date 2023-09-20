@@ -19,7 +19,7 @@ def isbig(x):
 largequakes = list(filter(isbig, data["features"]))
 
 # TODO: Create the header and row structures for the data
-header = ["Place", "Magnitude","Link","Date"]
+header = ["Place", "Magnitude","Date","Link"]
 rows = []
 # TODO: populate the rows with the resulting quake data
 for quake in largequakes:
